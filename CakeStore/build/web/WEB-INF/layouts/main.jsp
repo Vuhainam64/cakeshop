@@ -33,6 +33,8 @@
         <link rel="stylesheet" href="<c:url value="/css/owl.carousel.min.css" />" type="text/css">
         <link rel="stylesheet" href="<c:url value="/css/slicknav.min.css" />" type="text/css">
         <link rel="stylesheet" href="<c:url value="/css/style.css" />" type="text/css">
+        <link rel="stylesheet" href="<c:url value="/css/404.css" />" type="text/css">
+
     </head>
 
     <body>
@@ -222,7 +224,7 @@
         <div class="search-model">
             <div class="h-100 d-flex align-items-center justify-content-center">
                 <div class="search-close-switch">+</div>
-                <form class="search-model-form">
+                <form class="search-model-form" action="search.do" method="get">
                     <input type="text" id="search-input" placeholder="Search here.....">
                 </form>
             </div>
