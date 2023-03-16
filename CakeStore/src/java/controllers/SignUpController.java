@@ -4,13 +4,10 @@
  */
 package controllers;
 
-import entity.User;
 import db.UserFacade;
+import entity.User;
 import java.io.IOException;
 import java.io.PrintWriter;
-import java.sql.SQLException;
-import java.util.logging.Level;
-import java.util.logging.Logger;
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
@@ -22,8 +19,8 @@ import javax.servlet.http.HttpSession;
  *
  * @author _viet.quangg
  */
-@WebServlet(name = "UserController", urlPatterns = {"/user"})
-public class UserController extends HttpServlet {
+@WebServlet(name = "SignUpController", urlPatterns = {"/signup"})
+public class SignUpController extends HttpServlet {
 
     /**
      * Processes requests for both HTTP <code>GET</code> and <code>POST</code>
@@ -35,51 +32,47 @@ public class UserController extends HttpServlet {
      * @throws IOException if an I/O error occurs
      */
     protected void processRequest(HttpServletRequest request, HttpServletResponse response)
-            throws ServletException, IOException, SQLException {
+            throws ServletException, IOException {
         response.setContentType("text/html;charset=UTF-8");
         String controller = (String) request.getAttribute("controller");
         String action = (String) request.getAttribute("action");
-        //Xu ly yeu cau 
         switch (action) {
-            case "login":
+            case "signup":
                 //Viet code xu ly o day 
                 request.getRequestDispatcher("/WEB-INF/layouts/main.jsp").forward(request, response);
                 break;
-            case "login_handler":
-                login_handler(request, response);
-            case "logout":
-                //Viet code xu ly o day 
-                //Lay session hien tai 
-//                logout(request, response);
-//                request.getRequestDispatcher("/WEB-INF/layouts/main.jsp").forward(request, response);
+            case "signup_handler":
+                signup_handler(request, response);
                 break;
             default:
         }
     }
 
-    protected void login_handler(HttpServletRequest request, HttpServletResponse response)
+    protected void signup_handler(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
         String op = request.getParameter("op");
         switch (op) {
-            case "login":
-                try {
+            case "signup":
+               try {
+                String name = request.getParameter("name");
                 String email = request.getParameter("email");
                 String password = request.getParameter("password");
-                UserFacade uf = new UserFacade();
-                User user = uf.login(email, password);
-                if (user != null) {
-                    //Neu login thanh cong
-                    HttpSession session = request.getSession();
-                    session.setAttribute("user", user);
-                    //quay ve homepage
-                    response.sendRedirect(request.getContextPath() + "/cakestore/index.do");
-                } else {
-                    //cho hien lai login form de thu lai
-                    request.setAttribute("message", "Incorrect email or password.");
+                String repassword = request.getParameter("repassword");
+                if (!password.equals(repassword)) {
+                    request.setAttribute("message1", "Please input password correctly!");
                     request.getRequestDispatcher("/user/login.do").forward(request, response);
+                } else {
+                    UserFacade uf = new UserFacade();
+                    User user = uf.checkExist(email);
+                    if(user == null){
+                        
+                    }else{
+                        request.setAttribute("message2", "Email existed! Please use another email");
+                        request.getRequestDispatcher("/user/login.do").forward(request, response);
+                    }
                 }
             } catch (Exception ex) {
-                request.setAttribute("message", ex.toString());
+                request.setAttribute("message1", ex.toString());
                 request.getRequestDispatcher("/user/login.do").forward(request, response);
             }
             break;
@@ -88,8 +81,6 @@ public class UserController extends HttpServlet {
                 break;
         }
     }
-
-
 
     // <editor-fold defaultstate="collapsed" desc="HttpServlet methods. Click on the + sign on the left to edit the code.">
     /**
@@ -103,11 +94,7 @@ public class UserController extends HttpServlet {
     @Override
     protected void doGet(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
-        try {
-            processRequest(request, response);
-        } catch (SQLException ex) {
-            Logger.getLogger(UserController.class.getName()).log(Level.SEVERE, null, ex);
-        }
+        processRequest(request, response);
     }
 
     /**
@@ -121,11 +108,7 @@ public class UserController extends HttpServlet {
     @Override
     protected void doPost(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
-        try {
-            processRequest(request, response);
-        } catch (SQLException ex) {
-            Logger.getLogger(UserController.class.getName()).log(Level.SEVERE, null, ex);
-        }
+        processRequest(request, response);
     }
 
     /**

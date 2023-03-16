@@ -74,7 +74,7 @@
                             <li>ENG</li>
                         </ul>
                     </li>
-                    <li><a href="#">Sign in</a> <span class="arrow_carrot-down"></span></li>
+                    <li><a href="">Sign in</a> <span class="arrow_carrot-down"></span></li>
                 </ul>
             </div>
         </div>
@@ -101,7 +101,13 @@
                                                 <li>ENG</li>
                                             </ul>
                                         </li>
-                                        <li><a href="<c:url value="/cakestore/login.do"/>">Sign in</a> <span class="arrow_carrot-down"></span></li>
+                                        <c:if test="${user == null}">
+                                            <li><a href="<c:url value="/user/login.do" />">SIGN IN</a><span class="arrow_carrot-down"></span></li>
+                                            </c:if>
+                                        <c:if test="${user != null}">
+                                                <li><a>Welcome ${user.name} !</a><span class="arrow_carrot-down"></span></li>
+                                                <li><a href="<c:url value="/user/login.do" />">LOG OUT</a><span class="arrow_carrot-down"></span></li>
+                                            </c:if>
                                     </ul>
                                 </div>
                                 <div class="header__logo">
@@ -113,7 +119,7 @@
                                         <a href="#"><img src="<c:url value="/img/icon/heart.png"/>" alt=""></a>
                                     </div>
                                     <div class="header__top__right__cart">
-                                        <a href="#"><img src="<c:url value="/img/icon/cart.png"/>" alt=""></a>
+                                        <a href="<c:url value="/cart/cartsite.do" />"><img src="<c:url value="/img/icon/cart.png"/>" alt=""></a>
                                         <div class="cart__price">Cart: <span>$0.00</span></div>
                                     </div>
                                 </div>
@@ -128,7 +134,7 @@
                     <div class="col-lg-12">
                         <nav class="header__menu mobile-menu">
                             <ul>
-                                <li><a href="<c:url value="/cakestore/index.do"/>">Home</a></li>
+                                <li><a href="<c:url value="/"/>">Home</a></li>
                                 <li><a href="<c:url value="/cakestore/about.do"/>">About</a></li>
                                 <li><a href="<c:url value="/cakestore/shop.do"/>">Shop</a></li>
                                 <li><a href="#">Pages</a>

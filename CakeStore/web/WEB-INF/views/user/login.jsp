@@ -54,19 +54,21 @@
                     <form class="login" action="<c:url value="/user/login_handler.do"/>" method="post">
 
                         <div class="formGroup">
-                            <input type="email" placeholder="Email " name="name" required autocomplete="off" class="form-control">
+                            <input type="email" placeholder="Email " name="email" required autocomplete="off" class="form-control">
                         </div>
                         <div class="formGroup">
-                            <input type="password" name="phone" id="password" placeholder="Password" required autocomplete="off" class="form-control">
+                            <input type="password" name="password" id="password" placeholder="Password" required autocomplete="off" class="form-control">
 
                         </div>
+                        <i class="text" style="color:red;">${message}</i>
                         <div class="checkBox">
                             <input type="checkbox" name="checkbox" id="checkbox">
                             <span class="text">Keep me signed in on this device</span>
                         </div>
+
                         <div class="formGroup">
-                            <button type="submit" name="op" value="login" class="btn2"> LOGIN </button>
-                            <button type="submit" name="op" value="cancel" class="btn2"> CANCEL </button>
+                            <button type="submit" name="op" value="login"  class="btn2"> LOGIN </button>
+                            <button type="submit" name="op" value="cancel"  class="btn2"> CANCEL </button>
                         </div>
 
                     </form>

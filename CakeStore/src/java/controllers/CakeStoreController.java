@@ -68,14 +68,11 @@ public class CakeStoreController extends HttpServlet {
             case "about":
                 request.getRequestDispatcher("/WEB-INF/layouts/main.jsp").forward(request, response);
                 break;
-            case "login":
-                request.getRequestDispatcher("/WEB-INF/layouts/main.jsp").forward(request, response);
-                break;
             default:
                 //Show error page
-                request.setAttribute("controller", "error");
-                request.setAttribute("action", "error");
-                request.getRequestDispatcher("/WEB-INF/layouts/main.jsp").forward(request, response);
+//                request.setAttribute("controller", "error");
+//                request.setAttribute("action", "error");
+//                request.getRequestDispatcher("/WEB-INF/layouts/main.jsp").forward(request, response);
 
         }
     }
